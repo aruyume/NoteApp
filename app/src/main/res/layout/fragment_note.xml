@@ -5,5 +5,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragment.note.NoteFragment">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Note Fragment"
+        android:textColor="@color/black"
+        android:layout_gravity="center"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        />
+
 
 </FrameLayout>

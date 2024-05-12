@@ -28,14 +28,17 @@ class OnBoardViewPagerFragment : Fragment() {
         when (requireArguments().getInt(ARG_ONBOARD_POSITION)) {
             0 -> {
                 textView.text = "Очень удобный функционал"
+                binding.lottie.setAnimation(R.raw.lottie1)
             }
 
             1 -> {
                 textView.text = "Быстрый, качественный продукт"
+                binding.lottie.setAnimation(R.raw.lottie2)
             }
 
             2 -> {
                 textView.text = "Куча функций и интересных фишек"
+                binding.lottie.setAnimation(R.raw.lottie3)
             }
         }
     }

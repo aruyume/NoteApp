@@ -10,6 +10,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.noteapp.R
 import com.example.noteapp.databinding.FragmentOnBoardBinding
 import com.example.noteapp.ui.adapter.OnBoardViewPagerAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 
 class OnBoardFragment : Fragment() {
 
@@ -30,7 +31,13 @@ class OnBoardFragment : Fragment() {
     }
 
     private fun initialize() {
-        binding.viewPager.adapter = OnBoardViewPagerAdapter(this)
+        val adapter = OnBoardViewPagerAdapter(this)
+
+        binding.viewPager.adapter = adapter
+
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            tab.text = "Tab $position"
+        }.attach()
     }
 
     private fun setupListener() = with(binding.viewPager) {
@@ -39,14 +46,21 @@ class OnBoardFragment : Fragment() {
                 super.onPageSelected(position)
                 if (position == 2) {
                     binding.tvSkip.visibility = View.INVISIBLE
+                    binding.tvStartWork.visibility = View.VISIBLE
                 } else {
                     binding.tvSkip.visibility = View.VISIBLE
+                    binding.tvStartWork.visibility = View.GONE
                 }
             }
         })
         binding.tvSkip.setOnClickListener {
             if (currentItem < 3) {
                 setCurrentItem(currentItem + 2, true)
+            }
+        }
+        binding.tvStartWork.setOnClickListener {
+            if (binding.viewPager.currentItem == 2) {
+                findNavController().navigate(R.id.noteFragment)
             }
         }
     }
