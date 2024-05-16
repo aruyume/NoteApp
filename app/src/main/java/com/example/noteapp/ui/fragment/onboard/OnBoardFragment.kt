@@ -6,15 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.noteapp.R
 import com.example.noteapp.databinding.FragmentOnBoardBinding
 import com.example.noteapp.ui.adapter.OnBoardViewPagerAdapter
+import com.example.noteapp.utils.PreferenceHelper
 import com.google.android.material.tabs.TabLayoutMediator
+import java.util.prefs.Preferences
 
 class OnBoardFragment : Fragment() {
 
     private lateinit var binding: FragmentOnBoardBinding
+    private lateinit var preferenceHelper: PreferenceHelper
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +33,18 @@ class OnBoardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initialize()
         setupListener()
+        preferenceHelper = PreferenceHelper()
+        preferenceHelper.unit(requireContext().applicationContext)
+
+        if (!preferenceHelper.isOnBoardShow) {
+            initialize()
+            setupListener()
+        } else {
+            // Навигировать к главному экрану, так как onBoard уже был показан
+            findNavController().navigate(R.id.noteFragment)
+        }
     }
+
 
     private fun initialize() {
         val adapter = OnBoardViewPagerAdapter(this)
@@ -60,6 +76,7 @@ class OnBoardFragment : Fragment() {
         }
         binding.tvStartWork.setOnClickListener {
             if (binding.viewPager.currentItem == 2) {
+                preferenceHelper.isOnBoardShow = true
                 findNavController().navigate(R.id.noteFragment)
             }
         }
