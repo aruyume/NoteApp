@@ -10,10 +10,8 @@ import com.example.noteapp.databinding.ItemNoteBinding
 
 class NoteAdapter : ListAdapter<NoteModel, NoteAdapter.ViewHolder>(DiffCallback()) {
     class ViewHolder(private val binding: ItemNoteBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(item: NoteModel?) {
-            item?.let {
-                binding.tvTitle.text = it.title
-            }
+        fun bind(item: NoteModel) {
+            binding.itemText.text = item.title
         }
     }
 
@@ -23,7 +21,7 @@ class NoteAdapter : ListAdapter<NoteModel, NoteAdapter.ViewHolder>(DiffCallback(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.onBind(getItem(position))
+        holder.bind(getItem(position))
     }
 
     class DiffCallback : DiffUtil.ItemCallback<NoteModel>() {

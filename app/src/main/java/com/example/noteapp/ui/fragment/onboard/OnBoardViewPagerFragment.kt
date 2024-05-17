@@ -1,3 +1,4 @@
+
 package com.example.noteapp.ui.fragment.onboard
 
 import android.os.Bundle
@@ -14,7 +15,7 @@ class OnBoardViewPagerFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentOnBoardViewPagerBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -30,22 +31,17 @@ class OnBoardViewPagerFragment : Fragment() {
                 textView.text = "Очень удобный функционал"
                 binding.lottie.setAnimation(R.raw.lottie1)
             }
-
             1 -> {
                 textView.text = "Быстрый, качественный продукт"
                 binding.lottie.setAnimation(R.raw.lottie2)
             }
-
             2 -> {
                 textView.text = "Куча функций и интересных фишек"
                 binding.lottie.setAnimation(R.raw.lottie3)
             }
         }
     }
-
     companion object {
         const val ARG_ONBOARD_POSITION = "onBoard"
     }
-
-
 }

@@ -1,23 +1,22 @@
-package com.example.noteapp.utils
-
 import android.content.Context
 import android.content.SharedPreferences
 
-class PreferenceHelper {
+class PreferenceHelper(mainActivity: Context) {
+    private lateinit var sharedPreference: SharedPreferences
 
-    private lateinit var sharedPreferences: SharedPreferences
+    init {
+        unit(mainActivity)
+    }
 
-    fun unit(context: Context) {
-        sharedPreferences = context.getSharedPreferences(
-            "shared", Context.MODE_PRIVATE
-        )
+    fun unit(context: Context){
+        sharedPreference = context.getSharedPreferences("shared", Context.MODE_PRIVATE)
     }
 
     var title: String?
-        get() = sharedPreferences.getString("title", "")
-        set(value) = sharedPreferences.edit().putString("title", value)!!.apply()
+        get() = sharedPreference.getString("title", "")
+        set(value) = sharedPreference.edit().putString("title", value)!!.apply()
 
-    var isOnBoardShow: Boolean
-        get() = sharedPreferences.getBoolean("board", false)
-        set(value) = sharedPreferences.edit().putBoolean("board", value).apply()
+    var isOnBoardShown: Boolean
+        get() = sharedPreference.getBoolean("board", false)
+        set(value) = sharedPreference.edit().putBoolean("board", value).apply()
 }

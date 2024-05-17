@@ -1,3 +1,4 @@
+
 package com.example.noteapp.ui.fragment.note
 
 import android.os.Bundle
@@ -16,7 +17,7 @@ class DetailNoteFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDetailNoteBinding.inflate(inflater, container, false)
         return binding.root
     }
