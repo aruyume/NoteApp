@@ -8,7 +8,7 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/item_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
@@ -25,7 +25,7 @@
         android:textColor="@color/white"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/item_text"
         tools:text="@string/description" />
 
     <TextView
@@ -52,5 +52,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_data"
         tools:text="@string/time" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

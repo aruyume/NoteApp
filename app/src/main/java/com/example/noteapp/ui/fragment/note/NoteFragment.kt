@@ -12,7 +12,6 @@ import com.example.noteapp.data.NoteModel
 import com.example.noteapp.data.getBackStackData
 import com.example.noteapp.databinding.FragmentNoteBinding
 import com.example.noteapp.ui.adapter.NoteAdapter
-import com.example.noteapp.utils.PreferenceHelper
 
 class NoteFragment : Fragment() {
 

@@ -1,5 +1,7 @@
+
 package com.example.noteapp.ui.fragment.onboard
 
+import PreferenceHelper
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,21 +13,19 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.noteapp.R
 import com.example.noteapp.databinding.FragmentOnBoardBinding
 import com.example.noteapp.ui.adapter.OnBoardViewPagerAdapter
-import com.example.noteapp.utils.PreferenceHelper
 import com.google.android.material.tabs.TabLayoutMediator
-import java.util.prefs.Preferences
 
 class OnBoardFragment : Fragment() {
 
     private lateinit var binding: FragmentOnBoardBinding
     private lateinit var preferenceHelper: PreferenceHelper
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentOnBoardBinding.inflate(inflater, container, false)
+        preferenceHelper = PreferenceHelper(requireContext())
         return binding.root
     }
 
@@ -33,22 +33,10 @@ class OnBoardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initialize()
         setupListener()
-        preferenceHelper = PreferenceHelper()
-        preferenceHelper.unit(requireContext().applicationContext)
-
-        if (!preferenceHelper.isOnBoardShow) {
-            initialize()
-            setupListener()
-        } else {
-            // Навигировать к главному экрану, так как onBoard уже был показан
-            findNavController().navigate(R.id.noteFragment)
-        }
     }
-
 
     private fun initialize() {
         val adapter = OnBoardViewPagerAdapter(this)
-
         binding.viewPager.adapter = adapter
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
@@ -75,10 +63,9 @@ class OnBoardFragment : Fragment() {
             }
         }
         binding.tvStartWork.setOnClickListener {
-            if (binding.viewPager.currentItem == 2) {
-                preferenceHelper.isOnBoardShow = true
-                findNavController().navigate(R.id.noteFragment)
+            if (binding.viewPager.currentItem == 2)
+                preferenceHelper.isOnBoardShown = true
+                findNavController().navigate(R.id.action_onBoardFragment_to_noteFragment)
             }
         }
     }
-}
