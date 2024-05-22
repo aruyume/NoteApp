@@ -1,4 +1,4 @@
-package com.example.noteapp.data
+package com.example.noteapp.data.extension
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController

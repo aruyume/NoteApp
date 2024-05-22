@@ -32,6 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
+                android:letterSpacing="0.1"
                 android:text="@string/notes"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -51,12 +52,15 @@
             android:id="@+id/et_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_margin="30dp"
+            android:letterSpacing="0.1"
+            android:textColor="@color/white"
             android:background="@drawable/bg_ed"
             android:drawableStart="@drawable/search"
             android:drawablePadding="11dp"
             android:hint="@string/search_notes"
             android:padding="15dp"
+            android:singleLine="true"
             android:textColorHint="#505050"
             android:textSize="12sp" />
 
@@ -64,9 +68,11 @@
             android:id="@+id/rv_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_note"/>
+            tools:listitem="@layout/item_note" />
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

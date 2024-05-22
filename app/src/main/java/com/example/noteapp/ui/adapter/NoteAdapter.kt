@@ -2,16 +2,60 @@ package com.example.noteapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.noteapp.data.NoteModel
+import com.example.noteapp.R
+import com.example.noteapp.data.model.NoteModel
 import com.example.noteapp.databinding.ItemNoteBinding
 
 class NoteAdapter : ListAdapter<NoteModel, NoteAdapter.ViewHolder>(DiffCallback()) {
+
     class ViewHolder(private val binding: ItemNoteBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NoteModel) {
-            binding.itemText.text = item.title
+            binding.itemTitle.text = item.title
+            binding.itemDescription.text = item.description
+            binding.itemDate.text = item.date
+            binding.itemTime.text = item.time
+
+            val background: Int
+            val title: Int
+            val description: Int
+            val date: Int
+            val time: Int
+
+            val context = binding.root.context
+
+            when (item.selectedColor) {
+                "white" -> {
+                    background = R.drawable.bg_item_white
+                    title = R.color.beige
+                    description = R.color.beige
+                    date = R.color.beige
+                    time = R.color.beige
+                }
+                "red" -> {
+                    background = R.drawable.bg_item_red
+                    title = R.color.orange
+                    description = R.color.orange
+                    date = R.color.orange
+                    time = R.color.orange
+                }
+                else -> {
+                    background = R.drawable.bg_item_black
+                    title = R.color.white
+                    description = R.color.white
+                    date = R.color.white
+                    time = R.color.white
+                }
+            }
+
+            binding.root.background = ContextCompat.getDrawable(context, background)
+            binding.itemTitle.setTextColor(ContextCompat.getColor(context, title))
+            binding.itemDescription.setTextColor(ContextCompat.getColor(context, description))
+            binding.itemDate.setTextColor(ContextCompat.getColor(context, date))
+            binding.itemTime.setTextColor(ContextCompat.getColor(context, time))
         }
     }
 
@@ -30,7 +74,7 @@ class NoteAdapter : ListAdapter<NoteModel, NoteAdapter.ViewHolder>(DiffCallback(
         }
 
         override fun areContentsTheSame(oldItem: NoteModel, newItem: NoteModel): Boolean {
-            return oldItem.title == newItem.title
+            return oldItem.id == newItem.id
         }
     }
 }

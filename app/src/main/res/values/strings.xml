@@ -12,4 +12,7 @@
     <string name="description">убраться</string>
     <string name="data">6 июня</string>
     <string name="time">12:45</string>
+    <string name="title_detail">Заголовок</string>
+    <string name="description_detail">Описание</string>
+    <string name="finish">Готово</string>
 </resources>
