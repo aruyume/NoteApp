@@ -1,8 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-
+    //SaveArgs
     id("androidx.navigation.safeargs.kotlin")
+    //Ksp
+    id("com.google.devtools.ksp")
 
 }
 
@@ -63,4 +65,8 @@ dependencies {
     implementation ("com.airbnb.android:lottie:$lottieVersion")
     implementation ("com.google.code.gson:gson:2.8.8")
 
+    //Room
+    val roomVersion = "2.6.1"
+    implementation("androidx.room:room-ktx:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion") //подключила ksp
 }
