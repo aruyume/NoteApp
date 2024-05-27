@@ -77,12 +77,12 @@ class NoteFragment : Fragment(), OnClickItem {
     override fun onLongClick(noteModel: NoteModel) {
         val builder = AlertDialog.Builder(requireContext())
         with(builder){
-            setTitle("Are you sure, you want to delete?")
-            setPositiveButton("Yes"){dialog, which->
+            setTitle("Вы уверены, что хотите удалить?")
+            setPositiveButton("Да"){dialog, which->
                 App().getInstance()?.noteDao()?.deleteNote(noteModel)
 
             }
-            setNegativeButton("No"){dialog, which->
+            setNegativeButton("Нет"){dialog, which->
                 dialog.cancel()
 
             }
