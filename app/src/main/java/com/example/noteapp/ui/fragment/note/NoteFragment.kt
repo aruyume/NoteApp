@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +19,7 @@ import com.example.noteapp.data.model.NoteModel
 import com.example.noteapp.databinding.FragmentNoteBinding
 import com.example.noteapp.interfaces.OnClickItem
 import com.example.noteapp.ui.adapter.NoteAdapter
+import com.example.noteapp.ui.fragment.chat.ChatFragment
 
 class NoteFragment : Fragment(), OnClickItem {
 
@@ -36,6 +39,7 @@ class NoteFragment : Fragment(), OnClickItem {
         setupListener()
         initialize()
         getData()
+        setupDrawerNavigation()
     }
 
     private fun initialize() {
@@ -93,5 +97,12 @@ class NoteFragment : Fragment(), OnClickItem {
     override fun onClick(noteModel: NoteModel) {
         val action = NoteFragmentDirections.actionNoteFragmentToDetailNoteFragment(noteModel.id)
         findNavController().navigate(action)
+    }
+
+    private fun setupDrawerNavigation() {
+        binding.imgMenu.setOnClickListener {
+            val drawerLayout = requireActivity().findViewById<DrawerLayout>(R.id.drawer_layout)
+            drawerLayout.openDrawer(GravityCompat.START)
+        }
     }
 }
