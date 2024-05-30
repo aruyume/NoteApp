@@ -28,44 +28,39 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        // Установка ActionBar
+        
         setSupportActionBar(binding.toolbar)
 
-        // Инициализация DrawerLayout и NavController
         drawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
         navController = navHostFragment.navController
 
-        // Настройка AppBarConfiguration
+        // AppBarConfiguration
         appBarConfiguration = AppBarConfiguration(setOf(R.id.noteFragment, R.id.chatFragment), drawerLayout)
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
         NavigationUI.setupWithNavController(navView, navController)
 
-        // Настройка Drawer Toggle
+        // Drawer Toggle
         actionBarDrawerToggle = ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawerLayout.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Инициализация PreferenceHelper
         preferenceHelper = PreferenceHelper(this)
 
-        // Проверка состояния PreferenceHelper и навигация
         if (preferenceHelper.isOnBoardShown) {
             navController.navigate(R.id.noteFragment)
         } else {
             navController.navigate(R.id.onBoardFragment)
         }
 
-        // Обработка нажатия на пункт меню Chat
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_chat -> {
                     navController.navigate(R.id.chatFragment)
-                    drawerLayout.closeDrawers() // Закрываем NavigationDrawer
+                    drawerLayout.closeDrawers()
                     true
                 }
                 else -> false
