@@ -32,15 +32,19 @@ class MainActivity : AppCompatActivity() {
     private lateinit var preferenceHelper: PreferenceHelper
 
     private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
+        ActivityResultContracts.RequestPermission(),
     ) { isGranted: Boolean ->
         if (isGranted) {
             Toast.makeText(
-                this, "Разрешение на отправку уведомлений предоставлено", Toast.LENGTH_SHORT
+                this,
+                "Разрешение на отправку уведомлений предоставлено",
+                Toast.LENGTH_SHORT
             ).show()
         } else {
             Toast.makeText(
-                this, "Разрешение на отправку уведомлений не предоставлено", Toast.LENGTH_SHORT
+                this,
+                "Разрешение на отправку уведомлений не предоставлено",
+                Toast.LENGTH_SHORT
             ).show()
         }
     }
@@ -50,21 +54,23 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Установка ActionBar
         setSupportActionBar(binding.toolbar)
 
+        // Инициализация DrawerLayout и NavController
         drawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
         navController = navHostFragment.navController
 
-        //AppBarConfiguration
+        // Настройка AppBarConfiguration
         appBarConfiguration =
             AppBarConfiguration(setOf(R.id.noteFragment, R.id.chatFragment), drawerLayout)
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
         NavigationUI.setupWithNavController(navView, navController)
 
-        //Drawer Toggle
+        // Настройка Drawer Toggle
         actionBarDrawerToggle = ActionBarDrawerToggle(
             this,
             drawerLayout,
@@ -76,19 +82,22 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        // Инициализация PreferenceHelper
         preferenceHelper = PreferenceHelper(this)
 
+        // Проверка состояния PreferenceHelper и навигация
         if (preferenceHelper.isOnBoardShown) {
             navController.navigate(R.id.noteFragment)
         } else {
             navController.navigate(R.id.onBoardFragment)
         }
 
+        // Обработка нажатия на пункт меню Chat
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_chat -> {
                     navController.navigate(R.id.chatFragment)
-                    drawerLayout.closeDrawers()
+                    drawerLayout.closeDrawers() // Закрываем NavigationDrawer
                     true
                 }
 
@@ -112,7 +121,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS) -> {
-                    showPermissionAlertDialog()
+                    showPermissionRationaleDialog()
                 }
 
                 else -> {
@@ -122,7 +131,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showPermissionAlertDialog() {
+    private fun showPermissionRationaleDialog() {
         AlertDialog.Builder(this)
             .setTitle("Необходим доступ к уведомлениям")
             .setMessage("Для работы приложения требуется разрешение на отправку уведомлений")
@@ -130,10 +139,12 @@ class MainActivity : AppCompatActivity() {
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             }
             .setNegativeButton("Нет") { dialog, _ ->
-                // Разрешение не предоставлено
                 dialog.dismiss()
                 Toast.makeText(
-                    this, "Вы отказались от отправок уведомлений", Toast.LENGTH_SHORT).show()
+                    this,
+                    "Вы отказались от разрешения на отправку уведомлений",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
             .create()
             .show()

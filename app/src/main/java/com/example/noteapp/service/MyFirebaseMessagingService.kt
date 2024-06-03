@@ -42,6 +42,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         )
 
         val notificationLayout = getNotificationLayout(title, message)
+
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentIntent(pendingIntent)
